@@ -6,7 +6,17 @@ public class Product {
     private String name;
     private int cost;
 
+
+    public Product() {
+    }
+
     public Product(String name, int cost) {
+        this.name = name;
+        this.cost = cost;
+    }
+
+    public Product(Long id, String name, int cost) {
+        this.id = id;
         this.name = name;
         this.cost = cost;
     }
