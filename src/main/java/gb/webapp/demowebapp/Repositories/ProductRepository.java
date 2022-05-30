@@ -12,6 +12,30 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class ProductRepository {
 
+    private final Map<Long, Product> productMap = new ConcurrentHashMap<>();
+    private final AtomicLong identity = new AtomicLong(0);
 
+    public List<Product> findAll() {
+        return new ArrayList<>(productMap.values());
+    }
+
+    public Product findById(long id) {
+        return productMap.get(id);
+    }
+
+    public long insert(Product product) {
+        long id = identity.incrementAndGet();
+        product.setId(id);
+        productMap.put(id, product);
+        return id;
+    }
+
+    public void update(Product product) {
+        productMap.put(product.getId(), product);
+    }
+
+    public void delete(long id) {
+        productMap.remove(id);
+    }
 
 }
